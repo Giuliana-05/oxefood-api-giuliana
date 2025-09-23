@@ -1,0 +1,44 @@
+package br.com.ifpe.oxefood.modelo.produto;
+
+import java.time.LocalDate;
+
+import org.hibernate.annotations.SQLRestriction;
+import jakarta.persistence.Table;
+import br.com.ifpe.oxefood.util.entity.EntidadeAuditavel;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "Produto") // sera criado uma tabela msm nome da classe
+@SQLRestriction("habilitado = true") // serve para filtrar o registro da entidade
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Produto extends EntidadeAuditavel {
+
+    @Column
+    private String titulo;
+
+    @Column
+    private String codigoProduto;
+
+    @Column
+    private String descricao;
+
+    @Column
+    private String valorUniatrio;
+
+    @Column
+    private String tempoEntregaMin;
+
+    @Column
+    private String tempoEntregaMax;
+    
+}
