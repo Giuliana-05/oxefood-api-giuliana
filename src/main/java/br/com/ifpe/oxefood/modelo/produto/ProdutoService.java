@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ifpe.oxefood.modelo.produto.Produto; 
+import br.com.ifpe.oxefood.modelo.entregador.Entregador;
+
+
 
 @Service 
 public class ProdutoService { 
@@ -29,5 +31,19 @@ public class ProdutoService {
 
         return repository.findById(id).get(); // select * from cliente wher id =?
     }
+
+    @Transactional // confirma as alteração no final do banco 
+   public void update(Long id, Produto produtoAlterado) {
+
+      Produto produto = repository.findById(id).get();
+      produto.setTitulo(produtoAlterado.getTitulo());
+      produto.setDescricao(produtoAlterado.getDescricao());
+      produto.setValorUniatrio(produtoAlterado.getValorUniatrio());
+      produto.setCodigoProduto(produtoAlterado.getCodigoProduto());
+      produto.setTempoEntregaMin(produtoAlterado.getTempoEntregaMin());
+      produto.setTempoEntregaMin(produtoAlterado.getTempoEntregaMax());
+	    
+      repository.save(produto);
+  }
 
 }
