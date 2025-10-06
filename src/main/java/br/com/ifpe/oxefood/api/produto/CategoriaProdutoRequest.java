@@ -11,17 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CategoriaProdutoRequest {
 
-    private String titulo;
-
-    private String codigoProduto;
-
     private String descricao;
 
-    private String valorUnitario;
-
-    private String tempoEntregaMin;
-
-    private String tempoEntregaMax;
-
-    
 }
