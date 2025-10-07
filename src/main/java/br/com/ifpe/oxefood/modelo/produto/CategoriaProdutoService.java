@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.ifpe.oxefood.modelo.produto.CategoriaProdutoService;
+
 
 @Service 
 public class CategoriaProdutoService {
@@ -14,6 +16,7 @@ public class CategoriaProdutoService {
     @Transactional
     public CategoriaProduto save(CategoriaProduto categoriaProduto){
         categoriaProduto.setHabilitado(Boolean.TRUE);
+         return repository.save(categoriaProduto);
     }
 
     public List<CategoriaProduto> listarTodos(){
@@ -26,8 +29,9 @@ public class CategoriaProdutoService {
 
     @Transactional
     public void update(Long id, CategoriaProduto categoriaProdutoAlterado){
+
         CategoriaProduto categoriaProduto = repository.findById(id).get();
-        CategoriaProduto.setDescricao(categoriaProdutoAlterado.getDescricao());
+        categoriaProduto.setDescricao(categoriaProdutoAlterado.getDescricao());
         
 
         repository.save(categoriaProduto);

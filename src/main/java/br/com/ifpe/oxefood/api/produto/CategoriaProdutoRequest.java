@@ -13,4 +13,10 @@ public class CategoriaProdutoRequest {
 
     private String descricao;
 
+    public CategoriaProduto build() {
+
+        .descricao(descricao)
+        .build();
+    }
+
 }

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ifpe.oxefood.modelo.categoriaProduto.CategoriaProduto;
-import br.com.ifpe.oxefood.modelo.categoriaProduto.CategoriaProdutoService;
-
+import br.com.ifpe.oxefood.modelo.produto.CategoriaProdutoService;
+import br.com.ifpe.oxefood.modelo.produto.Produto;
+import br.com.ifpe.oxefood.modelo.produto.CategoriaProduto;
 
 @RestController
 @RequestMapping("/api/categoriaProduto") // url para acessar funções
@@ -29,8 +29,10 @@ public class CategoriaProdutoController {
     @PostMapping
     public ResponseEntity<CategoriaProduto> save (@RequestBody CategoriaProdutoRequest request){
 
-        CategoriaProduto categoriaProduto = categoriaProdutoService.save(request.build());
-        return new ResponseEntity<CategoriaProduto>(categoriaProduto, HttpStatus.CREATED);
+       CategoriaProduto categoriaProdutoNovo = request.build();
+       categoriaProdutoNovo.setCategoria(categoriaProdutoService.obterPorID(request.getIdCategoriaProduto()));
+       CategoriaProduto categoriaProduto = categoriaProdutoService.save(categoriaProdutoNovo);
+       return new ResponseEntity<CategoriaProduto>(categoriaProduto, HttpStatus.CREATED);
     }
 
     @GetMapping // listagem
@@ -46,7 +48,9 @@ public class CategoriaProdutoController {
     @PutMapping("/{id}")
     public ResponseEntity<CategoriaProduto> update(@PathVariable("id") Long id, @RequestBody CategoriaProdutoRequest request) {
 
-       categoriaProdutoService.update(id, request.build());
+    CategoriaProduto categoriaProduto = request.build();
+       categoriaProduto.setCategoria(categoriaProdutoService.obterPorID(request.getIdCategoriaProduto()));
+       categoriaProdutoService.update(id, categoriaProduto);
        return ResponseEntity.ok().build();
  }
 
