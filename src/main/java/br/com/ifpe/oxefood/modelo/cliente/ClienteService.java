@@ -19,6 +19,9 @@ public class ClienteService {
    @Autowired // injetar uma depedencia auto / inicializar um atributo de uma classe
    private ClienteRepository repository;
 
+   @Autowired
+   private EnderecoClienteRepository enderecoClienteRepository;
+
    @Transactional // criar um bloco transacional 
    public Cliente save(Cliente cliente) {
 

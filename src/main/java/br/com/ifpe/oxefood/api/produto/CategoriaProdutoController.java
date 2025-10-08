@@ -33,10 +33,11 @@ public class CategoriaProdutoController {
     public ResponseEntity<CategoriaProduto> save (@RequestBody CategoriaProdutoRequest request){
 
        CategoriaProduto categoriaProdutoNovo = request.build();
-       categoriaProdutoNovo.setCategoria(categoriaProdutoService.obterPorID(request.getIdCategoriaProduto()));
        CategoriaProduto categoriaProduto = categoriaProdutoService.save(categoriaProdutoNovo);
+
        return new ResponseEntity<CategoriaProduto>(categoriaProduto, HttpStatus.CREATED);
     }
+    
 
     @GetMapping // listagem
     public List<CategoriaProduto> listarTodos() {
@@ -52,9 +53,9 @@ public class CategoriaProdutoController {
     public ResponseEntity<CategoriaProduto> update(@PathVariable("id") Long id, @RequestBody CategoriaProdutoRequest request) {
 
     CategoriaProduto categoriaProduto = request.build();
-       categoriaProduto.setCategoria(categoriaProdutoService.obterPorID(request.getIdCategoriaProduto()));
-       categoriaProdutoService.update(id, categoriaProduto);
-       return ResponseEntity.ok().build();
+    categoriaProdutoService.update(id, categoriaProduto);
+
+    return ResponseEntity.ok().build();
  }
 
  @DeleteMapping("/{id}") // requisição tipo delete passando o id
