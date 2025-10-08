@@ -68,5 +68,5 @@ public class Entregador extends EntidadeAuditavel  {
 
     @Column
     private String complemento;
-    
+
 }
