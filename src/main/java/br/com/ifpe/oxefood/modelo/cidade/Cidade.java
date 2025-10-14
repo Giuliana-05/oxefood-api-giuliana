@@ -1,7 +1,6 @@
 package br.com.ifpe.oxefood.modelo.cidade;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.hibernate.annotations.SQLRestriction;
 import jakarta.persistence.Table;

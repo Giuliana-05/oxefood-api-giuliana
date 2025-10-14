@@ -26,17 +26,17 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Cliente extends EntidadeAuditavel  {
 
-    @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
+   @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
    private List<EnderecoCliente> enderecos;
 
   
-   @Column // determinar que esse atributo é coluna
+   @Column(nullable = false, length = 100) //column determinar que esse atributo é coluna
    private String nome;
 
    @Column
    private LocalDate dataNascimento;
 
-   @Column
+   @Column(unique = true)// não permite que exija 2 do mesmo cpf cadastrado
    private String cpf;
 
    @Column

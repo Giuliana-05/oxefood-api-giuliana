@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ifpe.oxefood.modelo.produto.CategoriaProdutoService;
 import br.com.ifpe.oxefood.modelo.produto.Produto;
 import br.com.ifpe.oxefood.modelo.produto.ProdutoService;
+import jakarta.validation.Valid;
 
 
 // end point de cliente (rotas)
@@ -37,7 +38,7 @@ public class ProdutoController {
 
   //@PostMapping(path="/cadastrar") para acessar outro post
    @PostMapping
-   public ResponseEntity<Produto> save(@RequestBody ProdutoRequest request) {
+   public ResponseEntity<Produto> save(@RequestBody  @Valid ProdutoRequest request) {
 
         Produto produtoNovo = request.build();
        produtoNovo.setCategoria(categoriaProdutoService.obterPorID(request.getIdCategoria()));

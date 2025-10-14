@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import jakarta.validation.Valid;
 
 import br.com.ifpe.oxefood.modelo.entregador.Entregador;
 import br.com.ifpe.oxefood.modelo.entregador.EntregadorService;
@@ -32,7 +32,7 @@ public class EntregadorController {
 
   //@PostMapping(path="/cadastrar") para acessar outro post
    @PostMapping
-   public ResponseEntity<Entregador> save(@RequestBody EntregadorRequest request) {
+   public ResponseEntity<Entregador> save(@RequestBody  @Valid EntregadorRequest request) {
 
        Entregador entregador = entregadorService.save(request.build());
        return new ResponseEntity<Entregador>(entregador, HttpStatus.CREATED);

@@ -2,9 +2,7 @@ package br.com.ifpe.oxefood.api.estado;
 
 import br.com.ifpe.oxefood.modelo.estado.Estado;
 
-import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
