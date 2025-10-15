@@ -23,9 +23,5 @@ public class CategoriaProduto extends EntidadeAuditavel{
     @Column
     private String descricao;
 
-    public void setCategoria(CategoriaProduto obterPorID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCategoria'");
-    }
     
 }

@@ -29,7 +29,7 @@ public class ProdutoRequest {
 
     private String descricao;
 
-    private String valorUnitario;
+    private Double valorUnitario;
 
     private String tempoEntregaMin;
 
@@ -41,7 +41,7 @@ public class ProdutoRequest {
         .titulo(titulo)
         .codigoProduto(codigoProduto)
         .descricao(descricao)
-        .valorUniatrio(valorUnitario)
+        .valorUnitario(valorUnitario)
         .tempoEntregaMin(tempoEntregaMin)
         .tempoEntregaMax(tempoEntregaMax)
         .build();
