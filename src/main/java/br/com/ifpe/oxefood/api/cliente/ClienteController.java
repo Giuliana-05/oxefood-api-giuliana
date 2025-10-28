@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ifpe.oxefood.modelo.acesso.UsuarioService;
 import br.com.ifpe.oxefood.modelo.cliente.Cliente;
 import br.com.ifpe.oxefood.modelo.cliente.ClienteService;
 import br.com.ifpe.oxefood.modelo.cliente.EnderecoCliente;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 // end point de cliente (rotas)
@@ -28,13 +30,13 @@ import jakarta.validation.Valid;
 public class ClienteController {
 
    @Autowired
-   private ClienteService clienteService;
+   private UsuarioService usuarioService;
 
   //@PostMapping(path="/cadastrar") para acessar outro post
    @PostMapping
-   public ResponseEntity<Cliente> save(@RequestBody  @Valid ClienteRequest request) {
+   public ResponseEntity<Cliente> save(@RequestBody  @Valid ClienteRequest request, HttpServletRequest request) {
 
-       Cliente cliente = clienteService.save(request.build());
+       Cliente cliente = clienteService.save(request.build(), usuarioService.obterUsuarioLogado(request));
        return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
    }
 
@@ -49,9 +51,9 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody ClienteRequest request) {
+    public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody ClienteRequest request, HttpServletRequest request) {
 
-       clienteService.update(id, request.build());
+       clienteService.update(id, request.build(), usuarioService.obterUsuarioLogado(request));
        return ResponseEntity.ok().build();
  }
 //classe void que não tem retorno para indicar 

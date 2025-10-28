@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ifpe.oxefood.modelo.acesso.Perfil;
 import br.com.ifpe.oxefood.modelo.acesso.PerfilRepository;
+import br.com.ifpe.oxefood.modelo.acesso.Usuario;
 import br.com.ifpe.oxefood.modelo.acesso.UsuarioService;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +32,7 @@ public class ClienteService {
    private PerfilRepository perfilUsuarioRepository;
 
    @Transactional // criar um bloco transacional 
-   public Cliente save(Cliente cliente) {
+   public Cliente save(Cliente cliente, Usuario usuarioLogado) {
         usuarioService.save(cliente.getUsuario());
 
       for (Perfil perfil : cliente.getUsuario().getRoles()) {
@@ -40,6 +41,7 @@ public class ClienteService {
       }
 
        cliente.setHabilitado(Boolean.TRUE);
+       cliente.setCriadoPor(usuarioLogado);
        return repository.save(cliente);
    }
 
@@ -54,7 +56,7 @@ public class ClienteService {
     }
 
     @Transactional // confirma as alteração no final do banco 
-   public void update(Long id, Cliente clienteAlterado) {
+   public void update(Long id, Cliente clienteAlterado, Usuario usuarioLogado) {
 
       Cliente cliente = repository.findById(id).get();
       cliente.setNome(clienteAlterado.getNome());
@@ -62,6 +64,8 @@ public class ClienteService {
       cliente.setCpf(clienteAlterado.getCpf());
       cliente.setFoneCelular(clienteAlterado.getFoneCelular());
       cliente.setFoneFixo(clienteAlterado.getFoneFixo());
+
+      cliente.setUltimaModificacaoPor(usuarioLogado);
 	    
       repository.save(cliente);
   }
