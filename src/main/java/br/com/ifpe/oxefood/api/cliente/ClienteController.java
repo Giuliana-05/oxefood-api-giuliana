@@ -1,8 +1,9 @@
 package br.com.ifpe.oxefood.api.cliente;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,11 +33,15 @@ public class ClienteController {
    @Autowired
    private UsuarioService usuarioService;
 
+   @Autowired
+   private ClienteService clienteService;
+
+
   //@PostMapping(path="/cadastrar") para acessar outro post
    @PostMapping
-   public ResponseEntity<Cliente> save(@RequestBody  @Valid ClienteRequest request, HttpServletRequest request) {
+   public ResponseEntity<Cliente> save(@RequestBody  @Valid ClienteRequest request, HttpServletRequest req) {
 
-       Cliente cliente = clienteService.save(request.build(), usuarioService.obterUsuarioLogado(request));
+       Cliente cliente = clienteService.save(request.build(), usuarioService.obterUsuarioLogado(req));
        return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
    }
 
@@ -51,11 +56,11 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody ClienteRequest request, HttpServletRequest request) {
+    public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody ClienteRequest request, HttpServletRequest req) {
 
-       clienteService.update(id, request.build(), usuarioService.obterUsuarioLogado(request));
+       clienteService.update(id, request.build(), usuarioService.obterUsuarioLogado(req));
        return ResponseEntity.ok().build();
- }
+    }
 //classe void que não tem retorno para indicar 
     @DeleteMapping("/{id}") // requisição tipo delete passando o id
     public ResponseEntity<Void> delete(@PathVariable Long id) {

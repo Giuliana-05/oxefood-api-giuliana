@@ -2,6 +2,7 @@ package br.com.ifpe.oxefood.api.produto;
 
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.ifpe.oxefood.modelo.produto.CategoriaProdutoService;
 import br.com.ifpe.oxefood.modelo.produto.Produto;
@@ -61,6 +63,13 @@ public class ProdutoController {
        return produtoService.filtrar(codigo, titulo, idCategoria);
    }
 
+   
+    @PostMapping("/{id}")
+    public ResponseEntity<Produto> saveImage(@PathVariable Long id, @RequestParam(value = "imagem", required = true) MultipartFile imagem) {
+
+    Produto produto = produtoService.saveImage(id, imagem);
+    return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
+    }
 
     @GetMapping("/{id}")// passar na url
     public Produto obterPorID(@PathVariable Long id) {
@@ -68,22 +77,20 @@ public class ProdutoController {
     }
     
     @PutMapping("/{id}")
- public ResponseEntity<Produto> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest request) {
+    public ResponseEntity<Produto> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest request) {
 
        Produto produto = request.build();
        produto.setCategoria(categoriaProdutoService.obterPorID(request.getIdCategoria()));
        produtoService.update(id, produto);
        return ResponseEntity.ok().build();
- }
+    }
 
- 
-
- @DeleteMapping("/{id}")
+   @DeleteMapping("/{id}")
    public ResponseEntity<Void> delete(@PathVariable Long id) {
 
        produtoService.delete(id);
        return ResponseEntity.ok().build();
-   }
+    }
 
 
 }

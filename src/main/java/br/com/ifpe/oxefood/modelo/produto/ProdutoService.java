@@ -1,15 +1,16 @@
 package br.com.ifpe.oxefood.modelo.produto;
 
-import jakarta.transaction.Transactional;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import br.com.ifpe.oxefood.util.Util;
 import br.com.ifpe.oxefood.util.exception.ProdutoException;
+import jakarta.transaction.Transactional;
+import lombok.Getter;
+import lombok.Setter;
 
 @Setter
 @Getter
@@ -92,6 +93,21 @@ public class ProdutoService {
 
        repository.save(produto);
    }
+
+   @Transactional
+  public Produto saveImage(Long id, MultipartFile imagem) {
+
+   Produto produto = obterPorID(id);
+
+     String imagemUpada = Util.fazerUploadImagem(imagem);
+
+     if (imagemUpada != null) {
+     	produto.setImagem(imagemUpada);
+     }
+
+     return save(produto);
+}
+
 
 
 }
